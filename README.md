@@ -7,6 +7,18 @@ Manage your hosts file with chef.
 * `default[:hosts_file][:path] = '/etc/hosts'`
 * `default[:hosts_file][:localhost_aliases] = []`
 
+### All Attributes
+
+```ruby
+default[:hosts_file][:path] = '/etc/hosts'
+default[:hosts_file][:custom_entries] = {}
+default[:hosts_file][:localhost_aliases] = []
+
+default[:hosts_file][:fqdn] = node[:fqdn]
+default[:hosts_file][:hostname] = node[:hostname]
+default[:hosts_file][:public_ips] = 'hostname' # 'fqdn' or 'localhost'
+```
+
 ### Via Attributes
 
 ```ruby
