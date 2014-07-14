@@ -4,9 +4,11 @@ node.default[:hosts_file][:fqdn] = node[:fqdn]
 node.default[:hosts_file][:hostname] = node[:hostname]
 
 # Always manage ourself
+default_hosts = [node[:hosts_file][:fqdn], 'localhost'].compact
+custom_hosts = node[:hosts_file][:localhost_aliases].compact
 hosts_file_entry '127.0.0.1' do
   hostname node[:hosts_file][:hostname]
-  aliases [node[:hosts_file][:fqdn], 'localhost'].compact
+  aliases default_hosts.zip(custom_hosts).flatten.compact
 end
 
 public_ip_hostname = case node[:hosts_file][:public_ips].to_s
