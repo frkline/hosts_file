@@ -5,10 +5,14 @@ Manage your hosts file with chef.
 ### Base configurables:
 
 * `default[:hosts_file][:path] = '/etc/hosts'`
+* `default[:hosts_file][:localhost_aliases] = []`
 
 ### Via Attributes
 
 ```ruby
+
+node.normal['hosts_file']['localhost_aliases'] = ['alias1.com', 'alias3.com']
+
 override_attributes(
   :hosts_file => {
     :custom_entries => {
