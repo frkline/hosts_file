@@ -48,24 +48,26 @@ ruby_block "hosts_file_notifier" do
   notifies :create, 'template[managed_hosts_file]', :delayed
 end
 
-# Add IPv6 bits
-hosts_file_entry '::1' do
-  hostname 'ip6-localhost'
-  aliases %w(ip6-loopback)
-end
-
-hosts_file_entry 'fe00::0' do
-  hostname 'ip6-localnet'
-end
-
-hosts_file_entry 'ff00::0' do
-  hostname 'ip6-mcastprefix'
-end
-
-hosts_file_entry 'ff02::1' do
-  hostname 'ip6-allnodes'
-end
-
-hosts_file_entry 'ff002::2' do
-  hostname 'ip6-allrouters'
+# Add IPv6 bits if configured
+if node[:hosts_file][:include_ipv6]
+  hosts_file_entry '::1' do
+    hostname 'ip6-localhost'
+    aliases %w(ip6-loopback)
+  end
+  
+  hosts_file_entry 'fe00::0' do
+    hostname 'ip6-localnet'
+  end
+  
+  hosts_file_entry 'ff00::0' do
+    hostname 'ip6-mcastprefix'
+  end
+  
+  hosts_file_entry 'ff02::1' do
+    hostname 'ip6-allnodes'
+  end
+  
+  hosts_file_entry 'ff002::2' do
+    hostname 'ip6-allrouters'
+  end
 end
